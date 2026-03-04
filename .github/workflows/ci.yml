@@ -4,32 +4,42 @@ on:
   push:
     branches:
       - main
-  # PR CI handled by autofix.yml
-  # pull_request:
-  #   branches:
-  #     - main
 
 jobs:
   ci:
     permissions:
       id-token: write
+      contents: read
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      
       - uses: pnpm/action-setup@v4
+      
       - uses: actions/setup-node@v4
         with:
           node-version: latest
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+          
       - run: npm install -g corepack@latest
       - run: corepack enable
-      - run: pnpm install
-      - run: pnpm lint
-      - run: pnpm build
-      - run: pnpm typecheck
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm --filter docs lint
+
+      - name: Generate HTML
+        run: pnpm --filter docs generate
+      
+      - name: Typecheck
+        run: pnpm --filter docs typecheck
+
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: nuxt-build-artifact
-          path: .output/public/
+          name: nuxt-html-preview
+          path: docs/.output/public/
           retention-days: 7
