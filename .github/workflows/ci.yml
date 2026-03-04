@@ -25,32 +25,14 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm --filter @nuxt/devtools-docs lint
-
-      - run: pnpm --filter @nuxt/devtools-docs generate
-      
-      - run: pnpm --filter @nuxt/devtools-docs typecheck
-
-      - name: Investigate all files
+      - name: Build docs
         run: |
-          echo "=== Global Search for .output or dist ==="
-          find . -maxdepth 4 -name ".output" -o -name "dist" -type d
-          
-          echo "=== Root hidden files ==="
-          ls -R .output/public 2>/dev/null || echo "No .output at root"
-          
-          echo "=== Docs hidden files ==="
-          ls -R docs/.output/public 2>/dev/null || echo "No .output in docs"
-          
-          echo "=== All HTML files location ==="
-          find . -name "*.html"
+          cd docs
+          pnpm generate
 
-      - name: Upload everything in docs
+      - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
-          name: investigation-result
-          path: |
-            .output/
-            docs/
-          include-hidden-files: true
+          name: nuxt-html-preview
+          path: docs/.output/public/
           retention-days: 7
