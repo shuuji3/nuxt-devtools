@@ -25,15 +25,15 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm --filter docs lint
+      - run: pnpm --filter "./docs" lint
 
-      - run: pnpm --filter docs generate
+      - run: pnpm --filter "./docs" generate
       
-      - run: pnpm --filter docs typecheck
+      - run: pnpm --filter "./docs" typecheck
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: nuxt-html-preview
-          path: docs/dist/
+          path: docs/.output/public/
           retention-days: 7
