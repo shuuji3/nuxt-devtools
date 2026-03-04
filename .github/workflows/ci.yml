@@ -31,9 +31,9 @@ jobs:
       
       - run: pnpm --filter @nuxt/devtools-docs typecheck
 
-      - name: Upload build artifact
+      - name: Upload docs directory
         uses: actions/upload-artifact@v4
         with:
-          name: nuxt-html-preview
-          path: .output/public/
+          name: docs-workspace-artifact
+          path: docs/
           retention-days: 7
