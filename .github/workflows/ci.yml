@@ -35,5 +35,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: nuxt-html-preview
-          path: docs/.output/public/
+          path: .output/public/
           retention-days: 7
