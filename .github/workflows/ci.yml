@@ -25,11 +25,11 @@ jobs:
 
       - run: pnpm install
 
-      - run: pnpm --filter "./docs" lint
+      - run: pnpm --filter @nuxt/devtools-docs lint
 
-      - run: pnpm --filter "./docs" generate
+      - run: pnpm --filter @nuxt/devtools-docs generate
       
-      - run: pnpm --filter "./docs" typecheck
+      - run: pnpm --filter @nuxt/devtools-docs typecheck
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
