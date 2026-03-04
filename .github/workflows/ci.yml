@@ -13,9 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - uses: pnpm/action-setup@v4
-      
       - uses: actions/setup-node@v4
         with:
           node-version: latest
@@ -25,21 +23,17 @@ jobs:
       - run: npm install -g corepack@latest
       - run: corepack enable
 
-      - name: Install dependencies
-        run: pnpm install
+      - run: pnpm install
 
-      - name: Lint
-        run: pnpm --filter docs lint
+      - run: pnpm --filter docs lint
 
-      - name: Generate HTML
-        run: pnpm --filter docs generate
+      - run: pnpm --filter docs generate
       
-      - name: Typecheck
-        run: pnpm --filter docs typecheck
+      - run: pnpm --filter docs typecheck
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
           name: nuxt-html-preview
-          path: docs/.output/public/
+          path: docs/dist/
           retention-days: 7
