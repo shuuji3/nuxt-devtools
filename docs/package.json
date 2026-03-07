@@ -16,7 +16,7 @@
     "@nuxt/devtools": "catalog:",
     "@nuxt/fonts": "catalog:",
     "@nuxt/image": "catalog:",
-    "@nuxt/ui-pro": "catalog:",
+    "@nuxt/ui": "4.5.1",
     "@nuxthq/studio": "catalog:",
     "@nuxtjs/plausible": "catalog:",
     "@vueuse/core": "catalog:",
